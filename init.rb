@@ -6,3 +6,11 @@ Redmine::Plugin.register :redmine_issue_tabs do
   url 'https://github.com/pineapple-thief/redmine_issue_tabs'
   author_url 'http://example.com/about'
 end
+
+class Hooks < Redmine::Hook::ViewListener
+  render_on :view_issues_show_details_bottom, :partial => 'hooks/timelog_on_issue_page/issues/timelog', :layout => false
+end
+
+Rails.application.config.to_prepare do
+  IssuesController.send(:include, TimelogOnIssuePage::IssuesControllerPatch)
+end
