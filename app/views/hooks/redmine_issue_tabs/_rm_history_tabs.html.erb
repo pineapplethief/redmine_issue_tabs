@@ -1,0 +1,13 @@
+<% content_for :header_tags do%>
+  <%= stylesheet_link_tag('issue_history_tabs.css', :plugin => :redmine_issue_tabs) %>
+  <%= javascript_include_tag('issue-history-tabs.js', :plugin => :redmine_issue_tabs) %>
+<% end %>
+
+
+
+<div id="history_tabs" class="tabs">
+<%= render_tabs [ { name: 'comments', partial: 'redmine_issue_tabs/blank', label: :label_issues_tab_comments },
+                  { name: 'history', partial: 'redmine_issue_tabs/blank', label: :label_issues_tab_history },
+                  { name: 'timelog', partial: 'redmine_issue_tabs/timelog', label: :label_spent_time },
+                  { name: 'changesets', partial: 'redmine_issue_tabs/blank', label: :label_associated_revisions } ] %>
+</div>

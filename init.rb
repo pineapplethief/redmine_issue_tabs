@@ -7,10 +7,9 @@ Redmine::Plugin.register :redmine_issue_tabs do
   author_url 'http://example.com/about'
 end
 
-class Hooks < Redmine::Hook::ViewListener
-  render_on :view_issues_show_details_bottom, :partial => 'hooks/timelog_on_issue_page/issues/timelog', :layout => false
-end
+require 'redmine_issue_tabs/view_hooks'
 
 Rails.application.config.to_prepare do
-  IssuesController.send(:include, TimelogOnIssuePage::IssuesControllerPatch)
+  IssuesController.send(:include, RedmineIssueTabs::IssuesControllerPatch)
 end
+

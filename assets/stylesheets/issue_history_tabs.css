@@ -1,0 +1,24 @@
+#history > h3 {
+    display: none;
+}
+
+div.timelog {
+  overflow: auto;
+  display: block;
+}
+
+div.timelog h4 {
+  padding-top: 5px;
+}
+
+.timelog {
+  clear: left;
+}
+
+.timelog .spent_on {
+  padding-left: 40px;
+  font-size: 12pt;
+}
+.timelog .spent_on span {
+  padding-right: 10px;
+}

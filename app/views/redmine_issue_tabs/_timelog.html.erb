@@ -1,0 +1,35 @@
+<% if @time_entries.count > 0 %>
+  <div id="issue_timelog">
+    <!-- <h3><%= l(:label_spent_time) %></h3> -->
+    <% @time_entries.each do |entry| %>
+      <div id="timelog-<%= entry.id %>" class="timelog">
+        <div>
+          <h4>
+            <%= avatar(entry.user, :size => "24") %>
+            <%= h entry.activity.name %> &nbsp; <%= authoring entry.created_on, entry.user, :label => :label_updated_time_by %>
+          </h4>
+
+          <p class="spent_on">
+            <span><%= format_date entry.spent_on %>:</span>
+            <%= l_hours entry.hours %>.
+          </p>
+
+          <% if entry.editable_by?(User.current) -%>
+            <span style="float: right;">
+              <%= link_to image_tag('edit.png'), {:controller => 'timelog', :action => 'edit', :id => entry, :project_id => nil},
+                                                  :title => l(:button_edit), :style => 'border-bottom-style: none;' %>
+              <%= link_to image_tag('delete.png'), {:controller => 'timelog', :action => 'destroy', :id => entry, :project_id => nil},
+                                                   :confirm => l(:text_are_you_sure),
+                                                   :method => :delete,
+                                                   :title => l(:button_delete),
+                                                   :style => 'border-bottom-style: none;' %>
+            </span>
+          <% end -%>
+        </div>
+        <p>
+          <%= h entry.comments %>
+        </p>
+      </div>
+    <% end %>
+  </div>
+<% end %>
