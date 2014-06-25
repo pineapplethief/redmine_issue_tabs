@@ -28,22 +28,22 @@ RMPlus.TABS = (function (my) {
         $journal.find('ul.details').hide();
       }
     });
-    $('#issue_timelog').hide();
+    $('#issue_timelog').addClass('I');
   };
 
   my.show_history = function () {
     $('.journal').show().find('.details').show().find('li').show();
-    $('#issue_timelog').hide();
+    $('#issue_timelog').addClass('I');
   };
 
   my.show_timelog = function(){
     $('.journal').hide();
-    $('#issue_timelog').show();
+    $('#issue_timelog').removeClass('I');
   };
 
   my.show_changesets = function(){
     $('.journal').hide();
-    $('#issue_timelog').hide();
+    $('#issue_timelog').addClass('I');
     $('#issue-changesets').show();
   };
 
@@ -60,7 +60,7 @@ $(document).ready(function(){
     var timelog_content = $('#issue_timelog');
     $('#issue_timelog').remove();
     $('#history').append(timelog_content);
-    $('#issue_timelog').hide();
+    $('#issue_timelog').addClass('I');
   }
   else {
     $('#tab-timelog').remove();
