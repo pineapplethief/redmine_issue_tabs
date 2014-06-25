@@ -98,6 +98,10 @@ $(document).ready(function(){
     $('div.issue').after(tabs);
   }
 
+  if ($('.tabs a.selected').length == 0){
+    $('.tabs a').first().addClass('selected');
+  }
+
   $('.tabs a.selected').each(function(){
     RMPlus.TABS.click_handler.apply(this);
   });
