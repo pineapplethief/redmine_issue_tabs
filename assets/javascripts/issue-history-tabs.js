@@ -86,7 +86,7 @@ $(document).ready(function(){
     var changesets_content = $('#issue-changesets');
     $('#issue-changesets').remove();
     $('#history').append(changesets_content);
-    $('#issue-changesets').hide();
+    $('#issue-changesets').addClass('I');
   }
   else {
     $('#tab-changesets').remove();
