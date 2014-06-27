@@ -29,30 +29,31 @@ RMPlus.TABS = (function (my) {
       }
     });
     $('#issue_timelog').addClass('I');
+    $('#issue-changesets').addClass('I');
   };
 
   my.show_history = function () {
     $('.journal').show().find('.details').show().find('li').show();
     $('#issue_timelog').addClass('I');
+    $('#issue-changesets').addClass('I');
   };
 
   my.show_timelog = function(){
     $('.journal').hide();
     $('#issue_timelog').removeClass('I');
+    $('#issue-changesets').addClass('I');
   };
 
   my.show_changesets = function(){
     $('.journal').hide();
     $('#issue_timelog').addClass('I');
-    $('#issue-changesets').show();
+    $('#issue-changesets').removeClass('I');
   };
 
   return my;
 })(RMPlus.TABS || {});
 
 $(document).ready(function(){
-  $('#issue-changesets').attr('style', '');
-  $('#issue-changesets').addClass('I');
   var has_comments = false;
   var has_history = ($('.journal').length > 0);
   var has_timelog = ($('#issue_timelog').length > 0);
