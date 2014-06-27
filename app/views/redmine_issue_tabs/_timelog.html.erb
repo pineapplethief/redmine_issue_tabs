@@ -2,17 +2,19 @@
   <div id="issue_timelog">
     <!-- <h3><%= l(:label_spent_time) %></h3> -->
     <% @time_entries.each do |entry| %>
-      <div id="timelog-<%= entry.id %>" class="timelog">
+      <div id="timelog-<%= entry.id %>" class="<%= cycle('odd', 'even') %>">
         <div>
-          <h4>
-            <%= avatar(entry.user, :size => "24") %>
-            <%= h entry.activity.name %> &nbsp; <%= authoring entry.created_on, entry.user, :label => :label_updated_time_by %>
-          </h4>
+          <b>
+            <%= format_date entry.spent_on %>:
+            <%#= avatar(entry.user, :size => "24") %>
+            <%= l_hours entry.hours %></b> &mdash; <%= h entry.activity.name %>.
+            <%= authoring entry.created_on, entry.user %>
+            <%#= h entry.activity.name %> <!-- &nbsp;  --><%#= authoring entry.created_on, entry.user, :label => :label_updated_time_by %>
 
-          <p class="spent_on">
+<!--           <p class="spent_on">
             <span><%= format_date entry.spent_on %>:</span>
             <%= l_hours entry.hours %>.
-          </p>
+          </p> -->
 
           <% if entry.editable_by?(User.current) -%>
             <span style="float: right;">
@@ -26,9 +28,7 @@
             </span>
           <% end -%>
         </div>
-        <p>
-          <%= h entry.comments %>
-        </p>
+        <div><%= h entry.comments %></div>
       </div>
     <% end %>
   </div>
