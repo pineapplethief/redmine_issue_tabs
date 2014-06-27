@@ -52,6 +52,7 @@ RMPlus.TABS = (function (my) {
 
 $(document).ready(function(){
   $('#issue-changesets').attr('style', '');
+  $('#issue-changesets').addClass('I');
   var has_comments = false;
   var has_history = ($('.journal').length > 0);
   var has_timelog = ($('#issue_timelog').length > 0);

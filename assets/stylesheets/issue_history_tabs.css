@@ -24,6 +24,8 @@ div.timelog h4 {
 }
 
 div#issue-changesets {
+  float: none;
+  width: 100%;
   margin-left: 1em !important;
   margin-bottom: 1em !important;
   background: #fff !important;
