@@ -22,3 +22,10 @@ div.timelog h4 {
 .timelog .spent_on span {
   padding-right: 10px;
 }
+
+div#issue-changesets {
+  margin-left: 1em;
+  margin-bottom: 1em;
+  background: #fff;
+  padding-left: 1em;
+}
