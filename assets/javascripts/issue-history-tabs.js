@@ -54,8 +54,7 @@ RMPlus.TABS = (function (my) {
 })(RMPlus.TABS || {});
 
 $(document).ready(function(){
-  $('.tabs-buttons').hide();
-
+  $(window).off("resize", displayTabsButtons);
   var has_comments = false;
   var has_history = ($('.journal').length > 0);
   var has_timelog = ($('#issue_timelog').length > 0);
@@ -114,4 +113,6 @@ $(document).ready(function(){
   $('.tabs a').on('click', function(event){
     RMPlus.TABS.click_handler.apply(this);
   });
+
+  $('.tabs-buttons').hide();
 });
