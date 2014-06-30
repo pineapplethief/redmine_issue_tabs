@@ -1,20 +1,12 @@
 <% if @time_entries.count > 0 %>
   <div id="issue_timelog">
-    <!-- <h3><%= l(:label_spent_time) %></h3> -->
     <% @time_entries.each do |entry| %>
       <div id="timelog-<%= entry.id %>" class="<%= cycle('odd', 'even') %>">
         <div>
           <b>
             <%= format_date entry.spent_on %>:
-            <%#= avatar(entry.user, :size => "24") %>
             <%= l_hours entry.hours %></b> &mdash; <%= h entry.activity.name %>.
             <%= authoring entry.created_on, entry.user %>
-            <%#= h entry.activity.name %> <!-- &nbsp;  --><%#= authoring entry.created_on, entry.user, :label => :label_updated_time_by %>
-
-<!--           <p class="spent_on">
-            <span><%= format_date entry.spent_on %>:</span>
-            <%= l_hours entry.hours %>.
-          </p> -->
 
           <% if entry.editable_by?(User.current) -%>
             <span style="float: right;">
