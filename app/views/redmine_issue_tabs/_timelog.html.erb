@@ -17,7 +17,7 @@
           </p> -->
 
           <% if entry.editable_by?(User.current) -%>
-            <span style="float: right;">
+            <span style="float: right; overflow: hidden;">
               <%= link_to image_tag('edit.png'), {:controller => 'timelog', :action => 'edit', :id => entry, :project_id => nil},
                                                   :title => l(:button_edit), :style => 'border-bottom-style: none;' %>
               <%= link_to image_tag('delete.png'), {:controller => 'timelog', :action => 'destroy', :id => entry, :project_id => nil},
