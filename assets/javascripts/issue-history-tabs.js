@@ -119,7 +119,7 @@ $(document).ready(function(){
     RMPlus.TABS.click_handler.apply(this);
   });
 
-  $('.tabs a').on('click', function(event){
+  $(document.body).on('click', '.tabs a', function(event){
     RMPlus.TABS.click_handler.apply(this);
   });
 
