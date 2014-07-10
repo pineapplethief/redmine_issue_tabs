@@ -2,7 +2,10 @@ RMPlus.TABS = (function (my) {
   var my = my || {};
 
   my.call_func = function(func){
-    my[func].apply(this, Array.prototype.slice.call(arguments, 1));
+    if (my[func])
+      my[func].apply(this, Array.prototype.slice.call(arguments, 1));
+    else
+      my.hide_everything( );
   };
 
   // click handler for tabs
@@ -48,6 +51,12 @@ RMPlus.TABS = (function (my) {
     $('.journal').hide();
     $('#issue_timelog').addClass('I');
     $('#issue-changesets').removeClass('I');
+  };
+
+  my.hide_everything = function(){
+    $('.journal').hide();
+    $('#issue_timelog').addClass('I');
+    $('#issue-changesets').addClass('I');
   };
 
   return my;
