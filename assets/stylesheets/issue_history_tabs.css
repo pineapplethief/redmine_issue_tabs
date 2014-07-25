@@ -23,7 +23,7 @@ div.timelog h4 {
   padding-right: 10px;
 }
 
-div#issue-changesets {
+#issue-changesets {
   float: none;
   width: 100%;
   margin-left: 1em !important;
