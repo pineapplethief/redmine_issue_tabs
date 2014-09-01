@@ -145,11 +145,11 @@ $(document).ready(function(){
     $('.tabs a').first().addClass('selected');
   }
 
-  $('.tabs a.selected').each(function(){
+  $('div#content .tabs a.selected').each(function(){
     RMPlus.TABS.click_handler.apply(this);
   });
 
-  $(document.body).on('click', '.tabs a', function(event){
+  $(document.body).on('click', 'div#content .tabs a', function(event){
     RMPlus.TABS.click_handler.apply(this);
   });
 
