@@ -1,15 +1,15 @@
 RMPlus.TABS = (function (my) {
   var my = my || {};
 
-  my.call_func = function(func){
+  my.call_func = function(func) {
     if (my[func])
       my[func].apply(this, Array.prototype.slice.call(arguments, 1));
     else
-      my.hide_everything( );
+      my.hide_everything();
   };
 
   // click handler for tabs
-  my.click_handler = function(){
+  my.click_handler = function() {
     // getting tab name without 'tab-' prefix and building function name
     var tab_name = this.id.substring(4, this.id.length);
     var function_name = 'show_' + tab_name;
@@ -41,23 +41,44 @@ RMPlus.TABS = (function (my) {
     $('#issue-changesets').addClass('I');
   };
 
-  my.show_timelog = function(){
+  my.show_timelog = function() {
     $('.journal').hide();
     $('#issue_timelog').removeClass('I');
     $('#issue-changesets').addClass('I');
   };
 
-  my.show_changesets = function(){
+  my.show_changesets = function() {
     $('.journal').hide();
     $('#issue_timelog').addClass('I');
     $('#issue-changesets').removeClass('I');
   };
 
-  my.hide_everything = function(){
+  my.hide_everything = function() {
     $('.journal').hide();
     $('#issue_timelog').addClass('I');
     $('#issue-changesets').addClass('I');
   };
+
+  my.load_issue_view_stats = function(url, tab_header, show_tab) {
+    var header_content = '<li>';
+    header_content += '<a href="' + url + '?tab=view_stats" id="tab-view_stats" onclick="showTab(\'view_stats\', this.href); this.blur(); return false;" class="no_line in_link" data-remote="true"><span>' + tab_header + '</span></a>';
+    header_content += '</li>';
+    $('#history_tabs > .tabs > ul:first').append(header_content);
+
+    $('#history_tabs').append('<div class="tab-content" id="tab-content-view_stats" style="' + (show_tab ? '' : 'display:none') + '"><div class="preloader"></div></div>');
+
+    var link = $('#tab-view_stats');
+    link.click(function(event) {
+      if ($('#tab-content-view_stats').attr('data-loaded')) {
+        $(this).removeAttr('data-remote');
+        return;
+      }
+      $('#tab-content-view_stats').attr('data-loaded', 1);
+    });
+    if (show_tab) {
+      link.trigger('click');
+    }
+  }
 
   return my;
 })(RMPlus.TABS || {});

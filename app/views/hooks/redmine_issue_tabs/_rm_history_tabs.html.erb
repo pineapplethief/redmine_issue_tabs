@@ -6,12 +6,22 @@
 
 
 <div id="history_tabs">
-<%= render_tabs [ { name: 'comments', partial: 'redmine_issue_tabs/blank', label: :label_issues_tab_comments },
-                  { name: 'history', partial: 'redmine_issue_tabs/blank', label: :label_issues_tab_history },
-                  { name: 'timelog', partial: 'redmine_issue_tabs/timelog', label: :label_spent_time },
-                  { name: 'changesets', partial: 'redmine_issue_tabs/blank', label: :label_associated_revisions } ] %>
+  <% issue_tabs = [ { name: 'comments', partial: 'redmine_issue_tabs/blank', label: :label_issues_tab_comments },
+                    { name: 'history', partial: 'redmine_issue_tabs/blank', label: :label_issues_tab_history },
+                    { name: 'timelog', partial: 'redmine_issue_tabs/timelog', label: :label_spent_time },
+                    { name: 'changesets', partial: 'redmine_issue_tabs/blank', label: :label_associated_revisions } ] %>
+
+  <%= render_tabs issue_tabs %>
 </div>
-<script>
-  //<![CDATA[
-  //]]>
-</script>
+
+<% if Redmine::Plugin.installed?(:unread_issues) %>
+  <% if User.current.global_permission_to?(:view_issue_view_stats) %>
+    <script type="text/javascript">
+    //<![CDATA[
+      $(document).ready(function(){
+        RMPlus.TABS.load_issue_view_stats('<%= url_for({ controller: :issue_reads, action: :view_stats, id: @issue.id, only_path: true }) %>', '<%= l(:views_statistics) %>', <%= params[:tab] == 'view_stats' ? 'true' : 'false' %>);
+      });
+    //]]>
+    </script>
+  <% end %>
+<% end %>
