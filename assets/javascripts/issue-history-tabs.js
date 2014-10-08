@@ -1,63 +1,63 @@
 RMPlus.TABS = (function (my) {
   var my = my || {};
 
-  my.call_func = function(func) {
-    if (my[func])
-      my[func].apply(this, Array.prototype.slice.call(arguments, 1));
-    else
-      my.hide_everything();
-  };
+  // my.call_func = function(func) {
+  //   if (my[func])
+  //     my[func].apply(this, Array.prototype.slice.call(arguments, 1));
+  //   else
+  //     my.hide_everything();
+  // };
 
   // click handler for tabs
-  my.click_handler = function() {
-    // getting tab name without 'tab-' prefix and building function name
-    var tab_name = this.id.substring(4, this.id.length);
-    var function_name = 'show_' + tab_name;
-    my.call_func(function_name);
-  };
+  // my.click_handler = function() {
+  //   // getting tab name without 'tab-' prefix and building function name
+  //   var tab_name = this.id.substring(4, this.id.length);
+  //   var function_name = 'show_' + tab_name;
+  //   my.call_func(function_name);
+  // };
 
-  my.show_comments = function () {
-    $('.journal').each(function (index) {
-      var $journal = $(this);
-      $journal.hide();
-      if ($journal.hasClass('has-notes')) {
-        $journal.show();
-      }
-      if ($journal.find('a[href^="/attachments"]').length > 0) {
-        $journal.show();
-        $journal.find('.details li').hide();
-        $journal.find('li:has(a[href^="/attachments"])').show();
-      } else {
-        $journal.find('ul.details').hide();
-      }
-    });
-    $('#issue_timelog').addClass('I');
-    $('#issue-changesets').addClass('I');
-  };
+  // my.show_comments = function () {
+  //   $('.journal').each(function (index) {
+  //     var $journal = $(this);
+  //     $journal.hide();
+  //     if ($journal.hasClass('has-notes')) {
+  //       $journal.show();
+  //     }
+  //     if ($journal.find('a[href^="/attachments"]').length > 0) {
+  //       $journal.show();
+  //       $journal.find('.details li').hide();
+  //       $journal.find('li:has(a[href^="/attachments"])').show();
+  //     } else {
+  //       $journal.find('ul.details').hide();
+  //     }
+  //   });
+  //   $('#issue_timelog').addClass('I');
+  //   $('#issue-changesets').addClass('I');
+  // };
 
-  my.show_history = function () {
-    $('.journal').show().find('.details').show().find('li').show();
-    $('#issue_timelog').addClass('I');
-    $('#issue-changesets').addClass('I');
-  };
+  // my.show_history = function () {
+  //   $('.journal').show().find('.details').show().find('li').show();
+  //   $('#issue_timelog').addClass('I');
+  //   $('#issue-changesets').addClass('I');
+  // };
 
-  my.show_timelog = function() {
-    $('.journal').hide();
-    $('#issue_timelog').removeClass('I');
-    $('#issue-changesets').addClass('I');
-  };
+  // my.show_timelog = function() {
+  //   $('.journal').hide();
+  //   $('#issue_timelog').removeClass('I');
+  //   $('#issue-changesets').addClass('I');
+  // };
 
-  my.show_changesets = function() {
-    $('.journal').hide();
-    $('#issue_timelog').addClass('I');
-    $('#issue-changesets').removeClass('I');
-  };
+  // my.show_changesets = function() {
+  //   $('.journal').hide();
+  //   $('#issue_timelog').addClass('I');
+  //   $('#issue-changesets').removeClass('I');
+  // };
 
-  my.hide_everything = function() {
-    $('.journal').hide();
-    $('#issue_timelog').addClass('I');
-    $('#issue-changesets').addClass('I');
-  };
+  // my.hide_everything = function() {
+  //   $('.journal').hide();
+  //   $('#issue_timelog').addClass('I');
+  //   $('#issue-changesets').addClass('I');
+  // };
 
   my.load_issue_view_stats = function(url, tab_header, show_tab) {
     var header_content = '<li>';
@@ -83,7 +83,7 @@ RMPlus.TABS = (function (my) {
   return my;
 })(RMPlus.TABS || {});
 
-$(document).ready(function(){
+$(document).ready(function () {
   var everythingLoaded = setInterval(function() {
   if (/loaded|complete|interactive/.test(document.readyState)) {
     clearInterval(everythingLoaded);
@@ -99,34 +99,37 @@ $(document).ready(function(){
   var has_timelog = ($('#issue_timelog').length > 0);
   var has_changesets = ($('#issue-changesets').length > 0);
 
-  if (has_timelog){
-    var timelog_content = $('#issue_timelog');
-    $('#issue_timelog').remove();
-    $('#history').append(timelog_content);
-    $('#issue_timelog').addClass('I');
+  $('.journal.has-notes').each(function (index) {
+    has_comments = true;
+    var el = $(this).clone();
+    el.appendTo($('#tab-content-comments'));
+    el.find('li:not(:has(a[href^="/attachments"]))').remove();
+  });
+
+  if (has_timelog) {
+    $('#issue_timelog').appendTo($('#tab-content-timelog'));
   }
   else {
     $('#tab-timelog').remove();
   }
-  $('.journal').each(function (index) {
-    var $journal = $(this);
-    $journal.hide();
-    if ($journal.hasClass('has-notes')) {
-      has_comments = true; return false;
-    }
-  });
 
-  if (!has_history){
+
+  if (has_history) {
+    $('#history').appendTo($('#tab-content-history'));
+  }
+  else {
     $('#tab-history').remove();
   }
-  if (!has_comments){
+
+  if (has_comments) {
+
+  }
+  else {
     $('#tab-comments').remove();
   }
-  if (has_changesets){
-    var changesets_content = $('#issue-changesets');
-    $('#issue-changesets').remove();
-    $('#history').append(changesets_content);
-    $('#issue-changesets').addClass('I');
+
+  if (has_changesets) {
+    $('#issue-changesets').appendTo($('#tab-content-changesets'));
   }
   else {
     $('#tab-changesets').remove();
@@ -145,13 +148,13 @@ $(document).ready(function(){
     $('.tabs a').first().addClass('selected');
   }
 
-  $('div#content .tabs a.selected').each(function(){
-    RMPlus.TABS.click_handler.apply(this);
-  });
+  // $('div#content .tabs a.selected').each( function() {
+  //   RMPlus.TABS.click_handler.apply(this);
+  // });
 
-  $(document.body).on('click', 'div#content .tabs a', function(event){
-    RMPlus.TABS.click_handler.apply(this);
-  });
+  // $(document.body).on('click', 'div#content .tabs a', function(event){
+  //   RMPlus.TABS.click_handler.apply(this);
+  // });
 
   $('.tabs-buttons').hide();
 });
