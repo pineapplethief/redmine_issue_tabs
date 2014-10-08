@@ -99,7 +99,7 @@ $(document).ready(function () {
   var has_timelog = ($('#issue_timelog').length > 0);
   var has_changesets = ($('#issue-changesets').length > 0);
 
-  $('.journal.has-notes').each(function (index) {
+  $('.journal.has-notes, .journal:has(a[href^="/attachments"])').each(function (index) {
     has_comments = true;
     var el = $(this).clone();
     el.appendTo($('#tab-content-comments'));
