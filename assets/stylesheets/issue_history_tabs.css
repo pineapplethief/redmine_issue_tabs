@@ -31,3 +31,19 @@ div.timelog h4 {
   background: #fff !important;
   padding-left: 1em !important;
 }
+
+#issue_timelog div.odd,
+#issue_timelog div.even {
+  padding: 2px 0;
+  line-height: 18px;
+}
+
+a.block-left-link {
+  display: block;
+  float: left;
+  margin-left: 5px;
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
