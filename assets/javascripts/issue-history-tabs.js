@@ -22,6 +22,8 @@ RMPlus.TABS = (function (my) {
     }
   }
 
+  my.http_tab = '';
+
   return my;
 })(RMPlus.TABS || {});
 
@@ -64,10 +66,12 @@ $(document).ready(function () {
   }
 
   if (has_comments) {
-
   }
   else {
     $('#tab-comments').remove();
+    if(RMPlus.TABS.http_tab == '') {
+      $('#tab-content-history').show();
+    }
   }
 
   if (has_changesets) {
