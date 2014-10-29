@@ -47,7 +47,7 @@ $(document).ready(function () {
     has_comments = true;
     var el = $(this).clone();
     el.appendTo($('#tab-content-comments'));
-    el.find('li:not(:has(a[href^="/attachments"]))').remove();
+    el.find('ul.details li:not(:has(a[href^="/attachments"]))').remove();
   });
 
   if (has_timelog) {
