@@ -1,28 +1,26 @@
 RMPlus.TABS = (function (my) {
   var my = my || {};
+  my.http_tab = 'history';
 
-  my.load_issue_view_stats = function(url, tab_header, show_tab) {
+  my.add_new_tab = function(id, url, tab_header, tab_content) {
     var header_content = '<li>';
-    header_content += '<a href="' + url + '?tab=view_stats" id="tab-view_stats" onclick="showTab(\'view_stats\', this.href); this.blur(); return false;" class="no_line in_link" data-remote="true"><span>' + tab_header + '</span></a>';
+    header_content += '<a href="' + url + '?tab=' + id + '" id="tab-' + id + '" onclick="showTab(\'' + id + '\', this.href); this.blur(); return false;" class="no_line in_link" data-remote="true"><span>' + tab_header + '</span></a>';
     header_content += '</li>';
     $('#history_tabs > .tabs > ul:first').append(header_content);
 
-    $('#history_tabs').append('<div class="tab-content" id="tab-content-view_stats" style="' + (show_tab ? '' : 'display:none') + '"><div class="preloader"></div></div>');
+    $('#history_tabs').append('<div class="tab-content" id="tab-content-' + id + '" style="display:none">' + (tab_content || tab_content == '' ? tab_content : '<div class="preloader"></div>') + '</div>');
 
-    var link = $('#tab-view_stats');
-    link.click(function(event) {
-      if ($('#tab-content-view_stats').attr('data-loaded')) {
-        $(this).removeAttr('data-remote');
-        return;
-      }
-      $('#tab-content-view_stats').attr('data-loaded', 1);
-    });
-    if (show_tab) {
-      link.trigger('click');
+    if (!tab_content && tab_content != '') {
+      var link = $('#tab-' + id);
+      link.click(function(event) {
+        if ($('#tab-content-' + id).attr('data-loaded')) {
+          $(this).removeAttr('data-remote');
+          return;
+        }
+        $('#tab-content-' + id).attr('data-loaded', 1);
+      });
     }
-  }
-
-  my.http_tab = '';
+  };
 
   return my;
 })(RMPlus.TABS || {});
@@ -72,6 +70,7 @@ $(document).ready(function () {
     if(RMPlus.TABS.http_tab == '') {
       $('#tab-content-history').show();
     }
+    else { $('#tab-content-' + RMPlus.TABS.http_tab).show(); }
   }
 
   if (has_changesets) {
