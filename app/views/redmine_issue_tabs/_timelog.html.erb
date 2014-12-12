@@ -2,23 +2,25 @@
   <div id="issue_timelog">
     <% @time_entries.each do |entry| %>
       <div id="timelog-<%= entry.id %>" class="<%= cycle('odd', 'even') %>">
+          <% if entry.editable_by?(User.current) -%>
+            <div class="R H">
+              <%= link_to '',
+                          {controller: 'timelog', action: 'edit', id: entry, project_id: nil},
+                          title: l(:button_edit),
+                          class: 'no_line icon icon-edit block-left-link' %>
+              <%= link_to '',
+                          {controller: 'timelog', action: 'destroy', id: entry, project_id: nil},
+                          confirm: l(:text_are_you_sure),
+                          method: :delete,
+                          title: l(:button_delete),
+                          class: 'no_line icon icon-del block-left-link' %>
+            </div>
+          <% end %>
         <div>
           <b>
             <%= format_date entry.spent_on %>:
             <%= l_hours entry.hours %></b> &mdash; <%= h entry.activity.name %>.
             <%= authoring entry.created_on, entry.user %>
-
-          <% if entry.editable_by?(User.current) -%>
-            <span style="float: right; overflow: hidden;">
-              <%= link_to image_tag('edit.png'), {:controller => 'timelog', :action => 'edit', :id => entry, :project_id => nil},
-                                                  :title => l(:button_edit), :style => 'border-bottom-style: none;' %>
-              <%= link_to image_tag('delete.png'), {:controller => 'timelog', :action => 'destroy', :id => entry, :project_id => nil},
-                                                   :confirm => l(:text_are_you_sure),
-                                                   :method => :delete,
-                                                   :title => l(:button_delete),
-                                                   :style => 'border-bottom-style: none;' %>
-            </span>
-          <% end -%>
         </div>
         <div><%= h entry.comments %></div>
       </div>

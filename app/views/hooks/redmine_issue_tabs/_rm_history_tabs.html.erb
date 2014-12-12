@@ -13,15 +13,3 @@
 
   <%= render_tabs issue_tabs %>
 </div>
-
-<% if Redmine::Plugin.installed?(:unread_issues) %>
-  <% if User.current.global_permission_to?(:view_issue_view_stats) %>
-    <script type="text/javascript">
-    //<![CDATA[
-      $(document).ready(function(){
-        RMPlus.TABS.load_issue_view_stats('<%= url_for({ controller: :issue_reads, action: :view_stats, id: @issue.id, only_path: true }) %>', '<%= l(:views_statistics) %>', <%= params[:tab] == 'view_stats' ? 'true' : 'false' %>);
-      });
-    //]]>
-    </script>
-  <% end %>
-<% end %>
