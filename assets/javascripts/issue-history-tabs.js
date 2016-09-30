@@ -26,22 +26,12 @@ RMPlus.TABS = (function (my) {
 })(RMPlus.TABS || {});
 
 $(document).ready(function () {
-  var everythingLoaded = setInterval(function() {
-  if (/loaded|complete|interactive/.test(document.readyState)) {
-    clearInterval(everythingLoaded);
-    if ($('div.tabs li:visible').length <= 1){
-        $('.tabs-buttons').hide();
-        $(window).off("resize", displayTabsButtons);
-      }
-    }
-  }, 100);
-
   var has_comments = false;
   var has_history = ($('.journal').length > 0);
   var has_timelog = ($('#issue_timelog').length > 0);
   var has_changesets = ($('#issue-changesets').length > 0);
 
-  $('.journal.has-notes, .journal:has(a[href^="/attachments"])').each(function (index) {
+  $($('.journal.has-notes, .journal:has(a[href^="/attachments"])').get().reverse()).each(function (index) {
     has_comments = true;
     var el = $(this).clone();
     el.appendTo($('#tab-content-comments'));
@@ -91,5 +81,5 @@ $(document).ready(function () {
     $('.tabs a').first().addClass('selected');
   }
 
-  $('.tabs-buttons').hide();
+  $('#history_tabs .tabs-buttons').remove();
 });

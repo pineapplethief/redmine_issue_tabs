@@ -8,8 +8,10 @@
 <div id="history_tabs">
   <% issue_tabs = [ { name: 'comments', partial: 'redmine_issue_tabs/blank', label: :label_issues_tab_comments },
                     { name: 'history', partial: 'redmine_issue_tabs/blank', label: :label_issues_tab_history },
-                    { name: 'timelog', partial: 'redmine_issue_tabs/timelog', label: :label_spent_time },
-                    { name: 'changesets', partial: 'redmine_issue_tabs/blank', label: :label_associated_revisions } ] %>
-
+                    { name: 'changesets', partial: 'redmine_issue_tabs/blank', label: :label_associated_revisions } ]
+  if User.current.allowed_to?(:view_time_entries, @project)
+    issue_tabs << { name: 'timelog', partial: 'redmine_issue_tabs/timelog', label: :label_spent_time }
+  end
+  %>
   <%= render_tabs issue_tabs %>
 </div>

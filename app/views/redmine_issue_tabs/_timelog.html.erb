@@ -19,7 +19,7 @@
         <div>
           <b>
             <%= format_date entry.spent_on %>:
-            <%= l_hours entry.hours %></b> &mdash; <%= h entry.activity.name %>.
+            <%= l_hours entry.hours %></b> &mdash; <%= h(entry.activity.try(:name) || 'none') %>.
             <%= authoring entry.created_on, entry.user %>
         </div>
         <div><%= h entry.comments %></div>
